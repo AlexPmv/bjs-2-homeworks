@@ -22,9 +22,7 @@ Student.prototype.addMarks = function (...marks) {
   if (this.marks === undefined) {
     this.marks = marks;
   } else {
-    marks.forEach(function (item) {
-      this.marks.push(item)
-    });
+      this.marks.push(...marks);
   };
 };
 
