@@ -45,9 +45,10 @@ const getTriangle = (firstSide, secondSide, thirdSide) => {
     try {
         return new Triangle(firstSide, secondSide, thirdSide);
     }  catch (err) {
-        let notTriangle = {};
-        notTriangle.getArea = () => 'Ошибка! Треугольник не существует';
-        notTriangle.getPerimeter = () => 'Ошибка! Треугольник не существует';
-        return notTriangle;
+        return {
+            getArea: () => 'Ошибка! Треугольник не существует',
+            getPerimeter: () => 'Ошибка! Треугольник не существует',
+        };
+        
     };
 };
