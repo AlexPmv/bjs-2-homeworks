@@ -1,25 +1,17 @@
 const parseCount = (string) => {
     const result = Number.parseInt(string);
     if (isNaN(result)) {
-        const invalid = new Error ('Невалидное значение');
-        throw invalid;
+        throw new Error ('Невалидное значение');
     } else {
         return result;
     };
 };
 
 const validateCount = (string) => {
-    let check, result;
     try {
-        result = parseCount(string);
-    } catch (invalid) {
-        check = invalid;
-    } finally {
-        if (!check) {
-            return result;
-        } else {
-            return check;
-        };
+        return parseCount(string);
+    } catch (err) {
+        return err;
     };
 }; 
 
@@ -28,8 +20,7 @@ class Triangle {
         if ((firstSide + secondSide) < thirdSide 
         || (firstSide + thirdSide) < secondSide
         || (thirdSide + secondSide) < firstSide) {
-            const notTriangle = new Error('Треугольник с такими сторонами не существует');
-            throw notTriangle;
+            throw new Error('Треугольник с такими сторонами не существует');
         };
         this.firstSide = firstSide;
         this.secondSide = secondSide;
@@ -51,16 +42,12 @@ class Triangle {
 };
 
 const getTriangle = (firstSide, secondSide, thirdSide) => {
-    let triangle = {};
     try {
-        triangle = new Triangle(firstSide, secondSide, thirdSide);
-    }  catch (notTriangle) {
-        triangle.getArea = () => 'Ошибка! Треугольник не существует';
-        triangle.getPerimeter = () => 'Ошибка! Треугольник не существует';
-    } finally {
-        if (!triangle.hasOwnProperty('getArea')) {
-            return new Triangle(firstSide, secondSide, thirdSide);
-        };
-        return triangle;
+        return new Triangle(firstSide, secondSide, thirdSide);
+    }  catch (err) {
+        let notTriangle = {};
+        notTriangle.getArea = () => 'Ошибка! Треугольник не существует';
+        notTriangle.getPerimeter = () => 'Ошибка! Треугольник не существует';
+        return notTriangle;
     };
 };
