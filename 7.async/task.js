@@ -4,7 +4,7 @@ class AlarmClock {
         this.timerId = null;
     };
 
-    addClock = (time, callback, id) => {
+    addClock(time, callback, id) {
         if (id === undefined) {
             throw new Error('Невозможно идентифицировать будильник. Параметр id не задан.');
         } else if (this.alarmCollection.find((item) => item.id === id)) {
@@ -13,16 +13,16 @@ class AlarmClock {
         this.alarmCollection.push({time, callback, id});
     };
 
-    removeClock = (id) => {
+    removeClock(id) {
         if (id === undefined) {
             throw new Error ('Не указан id будульника');
           };
         return this.alarmCollection.length !== 
         (this.alarmCollection = this.alarmCollection.filter((item) => 
-        item.id !== id)).length ? `Будильник ${id} успешно удален`: `Будильника ${id} не существует`;
+        item.id !== id)).length ? true : false;
     };  
     
-    getCurrentFormattedTime = () => {
+    getCurrentFormattedTime() {
         const currentDate = new Date();
         const currentHours = currentDate.getHours() < 10 ? `0${currentDate.getHours()}` : `${currentDate.getHours()}`;
         const currentMinutes = currentDate.getMinutes() < 10 ? `0${currentDate.getMinutes()}` : `${currentDate.getMinutes()}`;
@@ -30,7 +30,7 @@ class AlarmClock {
 
     };
 
-    start = () => {
+    start() {
         const checkClock = (alarm) => {
             const currentTime = this.getCurrentFormattedTime();
             if (alarm.time === currentTime) {
@@ -44,19 +44,19 @@ class AlarmClock {
         };
     };
 
-    stop = () => {
+    stop() {
         if (this.timerId !== null) {
             clearInterval(this.timerId);
             this.timerId = null;
         };
     };
 
-    printAlarms = () => {
+    printAlarms() {
         console.log(`Печать всех будильников в количестве: ${this.alarmCollection.length}`);
         this.alarmCollection.forEach((item) => console.log(`Будильник №${item.id} на ${item.time}`));
     };
 
-    clearAlarms = () => {
+    clearAlarms() {
         this.stop();
         this.alarmCollection = [];
     };
