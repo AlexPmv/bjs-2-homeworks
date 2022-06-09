@@ -20,44 +20,44 @@ function cachingDecoratorNew(func) {
 
 const addWithCashing = cachingDecoratorNew(add);
 
-const sendSignal = (x, y) => console.log(`Клик:${x}, ${y}`);
+const sendSignal = (args) => console.log(`Клик:${args.join(',')}`);
 
 function debounceDecoratorNew(func, ms) {
   let isThrottled = false, timerId;
 
-  return wrapper = (x, y) => {
+  return wrapper = (...args) => {
     if (isThrottled) {
       clearTimeout(timerId);
     } else {
-      func(x, y);
+      func(args);
       isThrottled = true;
     };
 
     timerId = setTimeout(() => {
       isThrottled = false;
-      func(x, y);
+      func(args);
     }, ms);
   };
 };
 
 const upgradedSendSignal = debounceDecoratorNew(sendSignal, 2000);
 
-function debounceDecorator2(func) {
+function debounceDecorator2(func, ms) {
   let isThrottled = false, timerId;
 
-  return wrapper = (x, y) => {
-    this.count === undefined ? this.count = 1 : this.count++;
+  return wrapper = (...args) => {
+    wrapper.count === undefined ? wrapper.count = 1 : wrapper.count++;
     
     if (isThrottled) {
       clearTimeout(timerId);
     } else {
-      func(x, y);
+      func(args);
       isThrottled = true;
     };
 
     timerId = setTimeout(() => {
       isThrottled = false;
-      func(x, y);
+      func(args);
     }, ms);
   };
 };
